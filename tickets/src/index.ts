@@ -16,12 +16,12 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log(`Connecting to auth-mongo-srv successfully...`);
+    console.log(`Connecting to tickets-mongo-srv successfully...`);
   } catch (err) {
     console.log(err);
   }
   app.listen(3000, () => {
-    console.log('Auth service is listening on port 3000');
+    console.log('Ticket service is listening on port 3000');
   });
 };
 
