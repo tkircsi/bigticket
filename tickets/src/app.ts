@@ -2,7 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@bigticket/common';
+import { errorHandler, NotFoundError, currentUser } from '@bigticket/common';
+
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -14,6 +16,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+
+app.use(currentUser);
+app.use(createTicketRouter);
 
 app.get('*', async (req, res, next) => {
   throw new NotFoundError();
