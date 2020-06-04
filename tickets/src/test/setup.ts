@@ -41,7 +41,7 @@ global.signup = (email: string) => {
   // Create a JWT with payload { id, email }
   const userJwt = jwt.sign(
     {
-      id: '123456',
+      id: new mongoose.Types.ObjectId().toHexString(),
       email: email,
     },
     process.env.JWT_KEY!
