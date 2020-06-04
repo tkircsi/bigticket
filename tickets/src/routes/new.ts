@@ -1,16 +1,32 @@
 import express, { Request, Response } from 'express';
-import {
-  requireAuth,
-  validateRequest,
-  BadRequestError,
-} from '@bigticket/common';
+import { requireAuth, validateRequest } from '@bigticket/common';
 import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
 
 const router = express.Router();
 
-router.post('/api/tickets', requireAuth, (req: Request, res: Response) => {
-  console.log(req.currentUser);
-  res.status(201).send({});
-});
+router.post(
+  '/api/tickets',
+  requireAuth,
+  [
+    body('title').notEmpty().withMessage('Title is required'),
+    body('price').notEmpty().withMessage('Price is required'),
+    body('price')
+      .isFloat({ gt: 0 })
+      .withMessage('Price must be greater than 0'),
+  ],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+    await ticket.save();
+    res.status(201).send(ticket);
+  }
+);
 
 export { router as createTicketRouter };
