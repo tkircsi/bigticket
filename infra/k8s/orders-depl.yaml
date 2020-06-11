@@ -16,6 +16,8 @@ spec:
         - name: orders
           image: tkircsi/bigticket-orders
           env:
+            - name: EXPIRATION_WINDOW_SECONDS
+              value: 10 * 60
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
