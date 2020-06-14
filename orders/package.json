@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bigticket/common": "^1.0.8",
+    "@bigticket/common": "^1.0.9",
     "@types/cookie-session": "^2.0.39",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.21",
