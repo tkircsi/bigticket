@@ -31,6 +31,7 @@ it('returns an error if the ticket does not exist', async () => {
 it('returns an error if the ticket is already reserved', async () => {
   const cookie = global.signup('boldi@mail.hu');
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Mozart Concert',
     price: 20,
   });
@@ -53,6 +54,7 @@ it('returns an error if the ticket is already reserved', async () => {
 it('reserves a ticket', async () => {
   const cookie = global.signup('boldi@mail.hu');
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Mozart Concert',
     price: 20,
   });
@@ -68,6 +70,7 @@ it('reserves a ticket', async () => {
 it('emits an order created event', async () => {
   const cookie = global.signup('boldi@mail.hu');
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Mozart Concert',
     price: 20,
   });
