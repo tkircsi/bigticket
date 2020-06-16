@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: orders-depl
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: orders
@@ -17,7 +17,7 @@ spec:
           image: tkircsi/bigticket-orders
           env:
             - name: EXPIRATION_WINDOW_SECONDS
-              value: 10 * 60
+              value: '20'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
