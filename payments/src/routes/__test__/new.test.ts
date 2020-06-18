@@ -5,6 +5,7 @@ import { natsWrapper } from '../../nats-wrapper';
 import mongoose, { version } from 'mongoose';
 import { OrderStatus } from '@bigticket/common';
 import { stripe } from '../../stripe';
+import { Payment } from '../../models/payment';
 
 jest.mock('../../stripe');
 
@@ -88,7 +89,19 @@ it('returns a 201 with valid inputs', async () => {
     .expect(201);
 
   const chargedOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+  const chargeResult = await (stripe.charges.create as jest.Mock).mock
+    .results[0].value;
+
   expect(chargedOptions.source).toEqual('tok_visa');
   expect(chargedOptions.amount).toEqual(order.price * 100);
   expect(chargedOptions.currency).toEqual('usd');
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: chargeResult.id,
+  });
+
+  expect(payment).toBeDefined();
+  expect(payment!.orderId).toEqual(order.id);
+  expect(payment!.stripeId).toEqual(chargeResult.id);
 });
