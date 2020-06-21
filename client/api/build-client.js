@@ -8,7 +8,8 @@ export default ({ req }) => {
     // Headers must be set according the ingress service Path rules
     return axios.create({
       baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        // 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        'http://www.bigticket.xyz',
       headers: req.headers,
     });
   } else {
