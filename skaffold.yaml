@@ -10,7 +10,7 @@ build:
   # googleCloudBuild:
   #   projectId: bigticket-dev
   artifacts:
-    - image: tkircsi/auth
+    - image: tkircsi/bigticket-auth
       context: auth
       docker:
         dockerfile: Dockerfile
